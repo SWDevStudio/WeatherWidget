@@ -16,10 +16,8 @@
       <div class="widget__estimate widget-estimate">
         <span
           class="widget widget-estimate"
-          v-for="(item, key) in info.weather"
-          :key="key"
         >
-          {{ item.description }}
+          {{widgetEstimate}}
         </span>
       </div>
     </div>
@@ -70,6 +68,10 @@ export default {
       if (this.info.weather)
         return `http://openweathermap.org/img/wn/${this.info.weather[0].icon}@2x.png`
       return ''
+    },
+    widgetEstimate() {
+      const estimates = this.info.weather.map(item => item.description).join(', ')
+      return estimates[0].toUpperCase() +estimates.slice(1)
     }
   },
   filters: {
@@ -94,14 +96,13 @@ export default {
   &__estimate {
     grid-column 1/3
   }
-  &__data {
-    margin-top:10px
-  }
 }
 .widget-data {
-  display grid
-  grid-template-columns repeat(2, 1fr)
-  grid-column-gap 5px
-  grid-row-gap 10px
+  display flex
+  flex-wrap wrap
+  &__item {
+    flex 1 0 50%
+    margin-top: 10px
+  }
 }
 </style>
