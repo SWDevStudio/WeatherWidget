@@ -8,6 +8,8 @@ import sendRequest from "@/plugins/sendRequest";
 Vue.use(sendRequest)
 Vue.config.productionTip = false
 
+import '@/assets/global.styl'
+
 new Vue({
   router,
   store,

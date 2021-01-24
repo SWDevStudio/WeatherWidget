@@ -6,17 +6,17 @@ export default {
     // eslint-disable-next-line no-unused-vars
     Vue.prototype.$sendRequest = async function ({ url, params} = {}) {
       try {
-        const res = await axios.get(
-          url || '/weather',
+        return await axios.get(
+          url || '/data/2.5/weather',
           {
             params: {
               appid: constants.API_KEY,
               lang: constants.lang,
+              units: constants.units,
               ...params
             }
           }
         )
-        return res
       } catch (e) {
         console.log(e)
         return {}
