@@ -2,8 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from "vuex-persistedstate";
 // TODO Kotaro use a inject ?
-import send from "@/plugins/sendRequest";
 import axios from 'axios'
+import constants from "@/utils/constants";
 
 Vue.use(Vuex)
 export default new Vuex.Store({
@@ -26,7 +26,7 @@ export default new Vuex.Store({
         this.commit('removeWidget', widget)
     },
     addWidget: (state, widget) => {
-      const widgetInState = (state.widgets.findIndex(item => item.id === widget.id))
+      const widgetInState = state.widgets.findIndex(item => item.id === widget.id)
       if (!~widgetInState) {
         state.widgets.push(widget)
         return
@@ -48,12 +48,26 @@ export default new Vuex.Store({
       for (let city of cities) {
         const widget = widgets.find(item => item.name === city)
         if (!widget || widget.dt + 600 < new Date().getTime()) {
-          const {data} = await send.$sendRequest({
-            params: {
-              q: city
+          try {
+            const {data} = await axios.get(
+              '/data/2.5/weather',
+              {
+                params: {
+                  appid: constants.API_KEY,
+                  lang: constants.lang,
+                  units: constants.units,
+                  q: city
+                }
+              }
+            )
+            commit('addWidget', data)
+          } catch (e) {
+            if (e.response.status) {
+              commit('removeCity', e.response.config.params.q)
+              alert(`Город ${e.response.config.params.q} не найдет, он будет удален из списка`)
             }
-          })
-          commit('addWidget', data)
+          }
+
         }
       }
     },
