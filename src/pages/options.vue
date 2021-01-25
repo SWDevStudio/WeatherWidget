@@ -13,11 +13,10 @@
         class="options__city city-line"
         v-for="city in cities"
         :key="city"
-        @click="removeCity(city)"
       >
         <font-awesome-icon icon="bars"/>
         <span class="city-line__name"> {{ city }} </span>
-        <font-awesome-icon icon="trash-alt"/>
+        <font-awesome-icon icon="trash-alt" @click="removeCity(city)"/>
       </div>
       <div class="options__text-field text-field">
         <label for="add-location" class="text-field__title">Add Location</label>
@@ -56,6 +55,7 @@ export default {
   methods: {
     ...mapMutations(['removeCity', 'addCity']),
     inputData() {
+      // TODO @Kotaro need only latin symbol
       this.addCity(this.city)
       this.city = ''
     }
