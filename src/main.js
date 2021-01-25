@@ -6,9 +6,10 @@ import store from './store'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCog, faTimes, faTrashAlt, faBars, faLevelDownAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import Vuelidate from 'vuelidate'
 
+Vue.use(Vuelidate)
 library.add(faCog, faTimes, faTrashAlt, faBars, faLevelDownAlt)
-
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.config.productionTip = false
 

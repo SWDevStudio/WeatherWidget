@@ -25,7 +25,7 @@
             type="text"
             id="add-location"
             class="input text-field__input"
-            v-model.trim="city"
+            v-model.trim.lazy="city"
             @keyup.enter="inputData"
           >
           <label
@@ -35,6 +35,12 @@
           >
             <font-awesome-icon icon="level-down-alt"/>
           </label>
+        </div>
+        <div
+          class="text-field__error"
+          v-if="!$v.city.val"
+        >
+          Latin letters only
         </div>
       </div>
     </div>
@@ -55,9 +61,16 @@ export default {
   methods: {
     ...mapMutations(['removeCity', 'addCity']),
     inputData() {
-      // TODO @Kotaro need only latin symbol
-      this.addCity(this.city)
-      this.city = ''
+      if (!this.$v.$invalid) {
+        this.addCity(this.city)
+        this.city = ''
+      }
+
+    }
+  },
+  validations: {
+    city: {
+      val: val => !val.length || /^[A-z0-9]+$/.test(val)
     }
   }
 }
@@ -87,6 +100,7 @@ export default {
 }
 
 .text-field {
+  font-family $font
   &__title {
     cursor pointer
   }
@@ -110,6 +124,9 @@ export default {
     transform rotate(90deg)
     font-size 24px
     cursor pointer
+  }
+  &__error {
+    color red
   }
 }
 

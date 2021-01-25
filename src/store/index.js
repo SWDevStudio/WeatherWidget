@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from "vuex-persistedstate";
-// TODO Kotaro use a inject ?
 import axios from 'axios'
 import constants from "@/utils/constants";
 
