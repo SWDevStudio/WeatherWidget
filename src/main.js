@@ -18,8 +18,6 @@ import '@/assets/global.styl'
 
 
 
-
-
 new Vue({
   router,
   store,

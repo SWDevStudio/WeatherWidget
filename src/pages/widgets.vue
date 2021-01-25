@@ -7,7 +7,7 @@
       <font-awesome-icon icon="cog"/>
     </router-link>
     <weather-widget
-      v-for="(item, key) in showWidgets"
+      v-for="(item, key) in widgets"
       :key="key"
       :info="item"
       class="widgets__widget"
@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
 import WeatherWidget from "@/components/WeatherWidget";
 
 export default {
@@ -23,19 +24,15 @@ export default {
   components: {
     WeatherWidget
   },
-  data: () => ({
-    showWidgets: []
-  }),
-  async created() {
-    for (const city of this.$store.state.cities) {
-      const {data} = await this.$sendRequest({
-        params: {
-          q: city
-        }
-      })
-      this.showWidgets.push(data)
-    }
+  computed: {
+    ...mapState(['widgets', 'cities'])
   },
+  created() {
+    this.$store.dispatch('fetchWidgets')
+  },
+  methods: {
+    ...mapMutations(['addWidget', 'removeWidget'])
+  }
 }
 </script>
 <style lang="stylus">
