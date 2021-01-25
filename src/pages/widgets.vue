@@ -1,5 +1,11 @@
 <template>
   <div class="widgets">
+    <router-link
+      to="/options"
+      class="widgets__link"
+    >
+      <font-awesome-icon icon="cog"/>
+    </router-link>
     <weather-widget
       v-for="(item, key) in showWidgets"
       :key="key"
@@ -34,13 +40,18 @@ export default {
 </script>
 <style lang="stylus">
 .widgets {
-  max-width 280px
-  margin-top: 25px
-  margin-left: 25px
+  width 100%
+  position relative
+
+  &__link {
+    position: absolute
+    top 3px
+    right 0
+  }
 
   &__widget {
-    border 1px solid black
     width: 100%
+
     &:not(:first-child) {
       margin-top: 15px
     }
