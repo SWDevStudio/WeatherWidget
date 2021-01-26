@@ -14,14 +14,9 @@
         {{ info.main.temp }} °С
       </div>
       <div class="widget__estimate widget-estimate">
-        <span
-          class="widget widget-estimate"
-        >
-          {{widgetEstimate}}
-        </span>
+        {{widgetEstimate}}
       </div>
     </div>
-    <!--    Думаю, что тут можно будет использовать цикл ? -->
     <div class="widget__data widget-data">
       <div
         class="widget-data__item"
@@ -84,6 +79,10 @@ export default {
 .widget {
   font-family $font
   font-size $size-text
+  &__name {
+    font-weight bold
+  }
+
   &__weather {
     display grid
     grid-template-columns repeat(2, 1fr)
