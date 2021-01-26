@@ -23,9 +23,8 @@
       </draggable>
       <text-field
         class="options__text-field"
-        @send="inputData"
+        @send="addCity(city)"
         v-model="city"
-        ref="input"
       />
     </div>
   </div>
@@ -56,11 +55,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['addCity']),
-    inputData() {
-      if (!this.$refs.input.$v.$invalid)
-        this.addCity(this.city)
-    }
+    ...mapMutations(['addCity'])
   }
 }
 </script>

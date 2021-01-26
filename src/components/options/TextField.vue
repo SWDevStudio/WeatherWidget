@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import {required} from 'vuelidate/lib/validators'
 export default {
   name: "TextField",
   computed: {
@@ -44,14 +45,18 @@ export default {
   },
   methods: {
     send(){
-      this.$emit('send')
-      this.input = ''
+      if (!this.$v.$invalid) {
+        this.$emit('send')
+        this.$emit('input', '')
+        this.input = ''
+      }
     }
   },
   validations() {
     return {
       input: {
-        val: this.validation
+        val: this.validation,
+        required
       }
     }
   }
