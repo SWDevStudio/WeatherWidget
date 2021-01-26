@@ -17,7 +17,7 @@
 
 <script>
 import {mapState, mapMutations, mapGetters, mapActions} from 'vuex'
-import WeatherWidget from "@/components/WeatherWidget";
+import WeatherWidget from "@/components/widget/WeatherWidget";
 
 export default {
   name: 'widgets',
