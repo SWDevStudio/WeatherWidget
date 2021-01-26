@@ -42,11 +42,8 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    async fetchWidgets({state, commit, dispatch}) {
+    async fetchWidgets({state, commit}) {
       const {cities, widgets} = state
-      if (!cities.length) {
-        await dispatch('fetchUserCity')
-      }
       for (let city of cities) {
         const widget = widgets.find(item => item.name === city)
         if (!widget || widget.dt + 600 < new Date().getTime()) {

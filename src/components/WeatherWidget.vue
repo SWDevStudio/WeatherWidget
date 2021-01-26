@@ -1,5 +1,7 @@
 <template>
-  <div class="widget">
+  <div class="widget"
+    v-if="Object.keys(info).length !== 0"
+  >
     <div class="widget__name">
       {{ info.name }} {{ info.sys.country }}
     </div>

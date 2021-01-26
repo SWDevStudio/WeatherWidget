@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import {mapState, mapMutations, mapGetters} from 'vuex'
+import {mapState, mapMutations, mapGetters, mapActions} from 'vuex'
 import WeatherWidget from "@/components/WeatherWidget";
 
 export default {
@@ -31,10 +31,23 @@ export default {
     })
   },
   created() {
-    this.$store.dispatch('fetchWidgets')
+    !this.cities.length ? this.getCity() : this.fetchWidgets()
   },
   methods: {
-    ...mapMutations(['addWidget', 'removeWidget'])
+    ...mapMutations(['addWidget', 'removeWidget', 'addCity']),
+    ...mapActions(['fetchUserCity', 'fetchWidgets']),
+    getCity() {
+      navigator.geolocation.getCurrentPosition(() => {
+        this.fetchUserCity()
+        .then(() => {
+            this.fetchWidgets()
+        })
+      }, () => {
+        alert('Невозможно определить город, выбран London')
+        this.addCity('London')
+        this.fetchWidgets()
+      })
+    }
   }
 }
 </script>
