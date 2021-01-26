@@ -1,4 +1,3 @@
-
 module.exports = {
   pluginOptions: {
     'style-resources-loader': {
@@ -7,5 +6,6 @@ module.exports = {
         './src/assets/vars.styl'
       ]
     }
-  }
+  },
+  publicPath: ''
 }
