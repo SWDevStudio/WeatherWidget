@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import {mapState, mapMutations, mapGetters} from 'vuex'
 import WeatherWidget from "@/components/WeatherWidget";
 
 export default {
@@ -25,7 +25,10 @@ export default {
     WeatherWidget
   },
   computed: {
-    ...mapState(['widgets', 'cities'])
+    ...mapState(['cities']),
+    ...mapGetters({
+      widgets: 'getWidgets'
+    })
   },
   created() {
     this.$store.dispatch('fetchWidgets')

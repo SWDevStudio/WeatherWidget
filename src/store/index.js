@@ -18,6 +18,9 @@ export default new Vuex.Store({
     addCity: (state, city) => {
       state.cities.push(city)
     },
+    setCities: (state, cities) => {
+      state.cities = cities
+    },
     removeCity(state, city) {
       state.cities = state.cities.filter(item => item !== city)
       const widget = state.widgets.find(item => item.name === city)
@@ -75,6 +78,8 @@ export default new Vuex.Store({
       commit('addCity', data.city)
     }
   },
-  getters: {},
+  getters: {
+    getWidgets: s => s.cities.map(city => s.widgets.find(item => item.name === city))
+  },
   modules: {}
 })

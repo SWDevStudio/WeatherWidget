@@ -9,15 +9,28 @@
       </router-link>
     </header>
     <div class="options__content">
-      <div
-        class="options__city city-line"
-        v-for="city in cities"
-        :key="city"
+      <draggable
+        v-model="cities"
+        group="people"
+        handle=".city-line__bars"
       >
-        <font-awesome-icon icon="bars"/>
-        <span class="city-line__name"> {{ city }} </span>
-        <font-awesome-icon icon="trash-alt" @click="removeCity(city)"/>
-      </div>
+        <div
+          class="options__city city-line"
+          v-for="city in cities"
+          :key="city"
+        >
+          <font-awesome-icon
+            icon="bars"
+            class="city-line__bars"
+          />
+          <span class="city-line__name"> {{ city }} </span>
+          <font-awesome-icon
+            icon="trash-alt"
+            @click="removeCity(city)"
+            class="city-line__trash"
+          />
+        </div>
+      </draggable>
       <div class="options__text-field text-field">
         <label for="add-location" class="text-field__title">Add Location</label>
         <div class="text-field__enter">
@@ -47,16 +60,24 @@
   </div>
 </template>
 <script>
-import {mapState, mapMutations} from 'vuex'
-
+import {mapMutations} from 'vuex'
+import draggable from 'vuedraggable'
 export default {
+  components: {
+    draggable
+  },
   data: () => ({
     city: ''
   }),
   computed: {
-    ...mapState({
-      cities: 'cities'
-    })
+    cities: {
+      get() {
+        return this.$store.state.cities
+      },
+      set(v) {
+        this.$store.commit('setCities', v)
+      }
+    }
   },
   methods: {
     ...mapMutations(['removeCity', 'addCity']),
@@ -140,6 +161,9 @@ export default {
   &__name {
     margin-right auto
     margin-left: 10px
+  }
+  &__bars, &__trash {
+    cursor pointer
   }
 }
 </style>
