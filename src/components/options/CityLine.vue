@@ -9,8 +9,9 @@
     <span class="city-line__name"> {{ city }} </span>
     <font-awesome-icon
       icon="trash-alt"
+      data-testid="trash-alt"
       @click="removeCity(city)"
-      class="city-line__trash"
+      class="city-line__trash trash-alt"
     />
   </div>
 </template>
